@@ -119,7 +119,7 @@ export const messageGroup = new Elysia().group('/messages', app =>
     )
 );
 
-export const App = new Elysia()
+export const app = new Elysia()
   .onAfterHandle(({ set }) => {
     set.headers['X-Powered-By'] = 'Elysia + Bun + Fly.io';
     set.headers['Access-Control-Allow-Origin'] = '*';

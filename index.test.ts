@@ -7,13 +7,13 @@
  */
 
 import { it, describe, expect, beforeEach } from 'bun:test';
-import { App, messages, INTRODUCTION } from '.';
+import { app, messages, INTRODUCTION } from '.';
 
 const BASE_URL = 'http://localhost:3000';
 
 describe('Testing wildcards, headers and server uptime', () => {
   it('Should return 404 and object for wildcards', async () => {
-    const response = await App.handle(
+    const response = await app.handle(
       new Request(`${BASE_URL}/899`, {
         method: 'POST',
       })
@@ -35,7 +35,7 @@ describe('Testing wildcards, headers and server uptime', () => {
   });
 
   it('Should return myself with headers (CORS and Powered-By)', async () => {
-    const response = await App.handle(
+    const response = await app.handle(
       new Request(`${BASE_URL}`, {
         method: 'GET',
       })
@@ -58,7 +58,7 @@ describe('Testing /messages', () => {
     });
 
     it('Should return empty array when no messages exist', async () => {
-      const response = await App.handle(
+      const response = await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'GET',
         })
@@ -82,7 +82,7 @@ describe('Testing /messages', () => {
         text: 'Another message.',
       });
 
-      const response = await App.handle(
+      const response = await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'GET',
         })
@@ -103,7 +103,7 @@ describe('Testing /messages', () => {
     });
 
     it('Should create a new message', async () => {
-      const response = await App.handle(
+      const response = await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -125,7 +125,7 @@ describe('Testing /messages', () => {
     });
 
     it('Should validate name minimum length', async () => {
-      const response = await App.handle(
+      const response = await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -142,7 +142,7 @@ describe('Testing /messages', () => {
     });
 
     it('Should validate text minimum length', async () => {
-      const response = await App.handle(
+      const response = await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -159,7 +159,7 @@ describe('Testing /messages', () => {
     });
 
     it('Should enforce rate limiting', async () => {
-      const request1 = await App.handle(
+      const request1 = await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -172,7 +172,7 @@ describe('Testing /messages', () => {
 
       expect(request1.status).toBe(429);
 
-      const request2 = await App.handle(
+      const request2 = await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -189,7 +189,7 @@ describe('Testing /messages', () => {
     });
 
     it('Should allow requests after rate limit window', async () => {
-      await App.handle(
+      await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -202,7 +202,7 @@ describe('Testing /messages', () => {
 
       await new Promise(resolve => setTimeout(resolve, 2100));
 
-      const request2 = await App.handle(
+      const request2 = await app.handle(
         new Request(`${BASE_URL}/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -229,7 +229,7 @@ describe('Testing /messages', () => {
         text: 'Message to delete',
       });
 
-      const response = await App.handle(
+      const response = await app.handle(
         new Request(`${BASE_URL}/messages/test-id-1`, {
           method: 'DELETE',
         })
@@ -240,7 +240,7 @@ describe('Testing /messages', () => {
     });
 
     it('Should return 404 when message not found', async () => {
-      const response = await App.handle(
+      const response = await app.handle(
         new Request(`${BASE_URL}/messages/non-existent-id`, {
           method: 'DELETE',
         })
@@ -269,7 +269,7 @@ describe('Testing /messages', () => {
         text: 'Keep this too',
       });
 
-      await App.handle(
+      await app.handle(
         new Request(`${BASE_URL}/messages/id-2`, {
           method: 'DELETE',
         })
@@ -284,7 +284,7 @@ describe('Testing /messages', () => {
 
   describe('Error handling', () => {
     it('Should include timestamp in error responses', async () => {
-      const response = await App.handle(
+      const response = await app.handle(
         new Request(`${BASE_URL}/messages/non-existent`, {
           method: 'DELETE',
         })
