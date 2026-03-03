@@ -1,4 +1,4 @@
-name: Deploy to Fly.io
+name: Deploy to Render
 
 on:
   push:
@@ -26,12 +26,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy to Fly.io
-        uses: superfly/flyctl-actions/setup-flyctl@master
-
-      - name: Deploy
-        run: flyctl deploy
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Deploy to Render
+        run: curl ${{ secrets.RENDER_DEPLOY_HOOK }}
+        if: github.ref == 'refs/heads/main'

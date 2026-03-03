@@ -1,10 +1,12 @@
 # guestbook-api
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tgr-wjya/guestbook-api/test.yml)
 [![CodeTime Badge](https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36362%26project%3Dguestbook-api)](https://codetime.dev)
+
 
 ## what is it?
 
-> its an in-memory guestbook api that i've built with elysia + bun, deployed on [fly.io](http://fly.io/)
+> its an in-memory guestbook api that i've built with elysia + bun, deployed on [render](http://render/)
 
 basically, you can leave a message for me here because there's really no one reading it besides me.
 and since its my actual project, it'd be happy if people use it ᵔᴥᵔ
@@ -26,7 +28,7 @@ i'll provide the documentation for the api below.
 | `POST /messages` | **leave a message**, here's how you can leave a message |
 | `DELETE /messages/:id` | **delete a message by id**, don't worry if you forgot the id. just list all the messages and find your previous message with its id |
 
->just a heads up, i leave a `.http` file in the root of this repo so you could get a pretty good grasp of the raw request used. just change the `@baseURL` to my actual `fly.io` url.
+>just a heads up, i leave a `.http` file in the root of this repo so you could get a pretty good grasp of the raw request used. just change the `@baseURL` to my actual `render` url.
 
 you won't be able to use it if you don't have [rest client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) on your ide. it is just to show you what the raw request looks like.
 
@@ -39,6 +41,11 @@ just **elysia** and **bun** my favorite dx tools.
 - just `bun install` and `bun run index.ts`.
 - not intended to be cloned but i'll leave it here if anyone's confused.
 - that script assumes you already have [bun](https://bun.com/) installed, if you haven't do it.
+- you can even deploy it if you want, which mean i need to add a copyright here.
+
+### copyright
+
+Copyright (c) 2026 Tegar Wijaya Kusuma
 
 ## find me here
 
