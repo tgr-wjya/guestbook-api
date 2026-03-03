@@ -1,21 +1,26 @@
 # guestbook-api
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tgr-wjya/guestbook-api/test.yml)
+![Codecov](https://img.shields.io/codecov/c/github/tgr-wjya/guestbook-api)
 [![CodeTime Badge](https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36362%26project%3Dguestbook-api)](https://codetime.dev)
 
 
 ## what is it?
 
-> its an in-memory guestbook api that i've built with elysia + bun, deployed on [render](http://render/)
+> its an in-memory guestbook api that i've built with elysia + bun, deployed on [railway](https://railway.com)
 
 basically, you can leave a message for me here because there's really no one reading it besides me.
 and since its my actual project, it'd be happy if people use it ᵔᴥᵔ
 
 i know that i said that the only one reading is me but technically you could, i just thought that no one'd be bothered enough to check it out.
 
+the downside of this project is that since the `messages` lives in the memory, it'll get wipeout every deployment, which is like every `push`.
+
+but this is a temporary setback as i'll likely improve this project later for more persistent storage. this is a bored project after all.
+
 ## live url
 
-you can check it out here: 
+you can check it out here: [guestbook-api](https://guestbook-api-production.up.railway.app/)
 
 i'll provide the documentation for the api below.
 
@@ -28,7 +33,7 @@ i'll provide the documentation for the api below.
 | `POST /messages` | **leave a message**, here's how you can leave a message |
 | `DELETE /messages/:id` | **delete a message by id**, don't worry if you forgot the id. just list all the messages and find your previous message with its id |
 
->just a heads up, i leave a `.http` file in the root of this repo so you could get a pretty good grasp of the raw request used. just change the `@baseURL` to my actual `render` url.
+>just a heads up, i leave a `.http` file in the root of this repo so you could get a pretty good grasp of the raw request used. just change the `@baseURL` to my actual `railway` url.
 
 you won't be able to use it if you don't have [rest client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) on your ide. it is just to show you what the raw request looks like.
 
