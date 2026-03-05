@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: oven/bun:latest
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: bun install
+      - run:
+          name: Run tests with coverage
+          command: bun test --coverage
+      - run:
+          name: Upload coverage to Codecov
+          command: |
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            chmod +x codecov
+            ./codecov -f ./coverage/coverage.json -Z
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: main
