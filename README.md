@@ -1,7 +1,7 @@
 # guestbook-api
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tgr-wjya/guestbook-api/test.yml)
-![Codecov](https://img.shields.io/codecov/c/github/tgr-wjya/guestbook-api)
+[![codecov](https://codecov.io/gh/tgr-wjya/guestbook-api/graph/badge.svg?token=aSFZgD4ysP)](https://codecov.io/gh/tgr-wjya/guestbook-api)
 [![CodeTime Badge](https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36362%26project%3Dguestbook-api)](https://codetime.dev)
 
 ## what is it?
