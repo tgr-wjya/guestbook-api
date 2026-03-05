@@ -8,20 +8,23 @@
  * DELETE /messages/:id - Delete a message by ID
  *
  * @author Tegar Wijaya Kusuma
- * @date 3 March 2026
+ * @date 6 March 2026
  * @note A bored project in the middle of the night and also to learn how Fly.io works since its the only one that support Elysia + Bun deployment.
  */
 
 import { Elysia, t } from 'elysia';
 import { swagger } from '@elysiajs/swagger';
 
-const PORT = 3000;
+/**
+ * CONST definition goes here.
+ */
+const PORT = Bun.env.PORT || 3000;
+const HOSTNAME = Bun.env.HOST || '0.0.0.0';
 const MIN_NAME_LENGTH = 2;
 const MIN_TEXT_LENGTH = 5;
 const RATE_LIMIT_MS = 2000;
 const lastRequestTime = new Map<string, number>();
-export const INTRODUCTION =
-  "heya there! my name's tegar wijaya kusuma, and you're hitting my guestbook api. if this is intentional do go ahead and continue what you're doing. thanks for visiting!";
+export const INTRODUCTION = 'made with ◉‿◉';
 
 interface Message {
   id: string;
@@ -151,7 +154,7 @@ export const app = new Elysia()
     };
   })
 
-  .listen(PORT);
+  .listen({ port: PORT, hostname: HOSTNAME });
 
 console.log(`Elysia listening at: http://localhost:${PORT}`);
 console.log(`Check out Swagger here: http://localhost:${PORT}/swagger`);

@@ -4,7 +4,6 @@
 ![Codecov](https://img.shields.io/codecov/c/github/tgr-wjya/guestbook-api)
 [![CodeTime Badge](https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36362%26project%3Dguestbook-api)](https://codetime.dev)
 
-
 ## what is it?
 
 > its an in-memory guestbook api that i've built with elysia + bun, deployed on [railway](https://railway.com)
@@ -58,6 +57,6 @@ Copyright (c) 2026 Tegar Wijaya Kusuma
 
 ---
 
-3 march 2026
+6 march 2026
 
 made with ◉‿◉

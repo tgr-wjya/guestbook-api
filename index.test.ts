@@ -2,7 +2,7 @@
  * Test runner for my index.ts
  *
  * @author Tegar Wijaya Kusuma
- * @date 3 March 2026
+ * @date 6 March 2026
  * @note A bored project, let's see how fast I can make it 100% coverage.
  */
 
