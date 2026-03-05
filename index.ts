@@ -9,7 +9,7 @@
  *
  * @author Tegar Wijaya Kusuma
  * @date 6 March 2026
- * @note A bored project in the middle of the night and also to learn how Fly.io works since its the only one that support Elysia + Bun deployment.
+ * @note A bored project in the middle of the night and also to learn how Railway works since I heard the deployment process is quite easy.
  */
 
 import { Elysia, t } from 'elysia';
@@ -23,8 +23,77 @@ const HOSTNAME = Bun.env.HOST || '0.0.0.0';
 const MIN_NAME_LENGTH = 2;
 const MIN_TEXT_LENGTH = 5;
 const RATE_LIMIT_MS = 2000;
-const lastRequestTime = new Map<string, number>();
 export const INTRODUCTION = 'made with ◉‿◉';
+
+//
+/**
+ * A map that stores the timestamp of the last request made by each client, identified by their IP address or unique identifier.
+ *
+ * This map is used for rate limiting purposes to track when each client last made a request to the API.
+ * The key represents the client identifier (typically an IP address), and the value represents the timestamp
+ * in milliseconds (from `Date.now()`) when that client's last request was processed.
+ *
+ * @constant
+ * @type {Map<string, number>}
+ */
+export const lastRequestTime = new Map<string, number>();
+setInterval(() => {
+  const cutoff = Date.now() - RATE_LIMIT_MS * 10;
+  for (const [ip, now] of lastRequestTime) {
+    if (now < cutoff) lastRequestTime.delete(ip);
+  }
+}, RATE_LIMIT_MS * 10);
+
+/**
+ * Custom Error Classes
+ *
+ * These error classes extend the base Error class to provide specific HTTP status codes
+ * and error messages for different API error scenarios.
+ */
+
+/**
+ * Error thrown when a requested message cannot be found in the guestbook.
+ * Returns a 404 status code.
+ *
+ * @class MessageNotFoundError
+ * @extends {Error}
+ */
+class MessageNotFoundError extends Error {
+  status = 404;
+  constructor() {
+    super('Message not found, unfortunately');
+  }
+}
+
+/**
+ * Error thrown when a client exceeds the rate limit for API requests.
+ * Returns a 429 status code.
+ *
+ * @class RateLimitError
+ * @extends {Error}
+ */
+class RateLimitError extends Error {
+  status = 429;
+  constructor() {
+    super('Too many request at once, please slow down!');
+  }
+}
+
+// Rate Limiting logic.
+function rateLimit(set: { status: number }, request: Request) {
+  const ip =
+    request.headers.get('x-forwarded-for') ??
+    request.headers.get('host')?.split(':')[0] ??
+    'unknown';
+  const now = Date.now();
+  const last = lastRequestTime.get(ip);
+
+  if (last && now - last < RATE_LIMIT_MS) {
+    throw new RateLimitError();
+  }
+
+  lastRequestTime.set(ip, now);
+}
 
 interface Message {
   id: string;
@@ -32,6 +101,7 @@ interface Message {
   text: string;
 }
 
+// TODO: Encapsulate state in a class or service object (e.g., GuestbookService) that can be instantiated and injected, improving testability and making dependencies explicit
 export const messages: Message[] = [];
 
 export const messageGroup = new Elysia().group('/messages', app =>
@@ -40,9 +110,15 @@ export const messageGroup = new Elysia().group('/messages', app =>
     /**
      * Global onError messageGroup
      */
-    .onError(({ error }) => {
+    .onError(({ error, set }) => {
+      if (error instanceof MessageNotFoundError) {
+        set.status = error.status;
+      } else if (error instanceof RateLimitError) {
+        set.status = error.status;
+      }
+
       return {
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error.message,
         timestamp: new Date().toISOString(),
       };
     })
@@ -80,19 +156,7 @@ export const messageGroup = new Elysia().group('/messages', app =>
           text: t.String({ minLength: MIN_TEXT_LENGTH }),
         }),
         beforeHandle: ({ set, request }) => {
-          const ip =
-            request.headers.get('x-forwarded-for') ??
-            request.headers.get('host') ??
-            'unknown';
-          const now = Date.now();
-          const last = lastRequestTime.get(ip);
-
-          if (last && now - last < RATE_LIMIT_MS) {
-            set.status = 429;
-            throw new Error('Too many request, please slow down!');
-          }
-
-          lastRequestTime.set(ip, now);
+          rateLimit(set, request);
         },
       }
     )
@@ -104,15 +168,15 @@ export const messageGroup = new Elysia().group('/messages', app =>
     .delete(
       '/:id',
       async ({ set, params }) => {
-        const index = messages.findIndex(t => t.id === params.id);
+        const index = messages.findIndex(msg => msg.id === params.id);
 
         if (index === -1) {
-          set.status = 404;
-          throw new Error('Message Not Found');
+          throw new MessageNotFoundError();
         }
 
         messages.splice(index, 1);
         set.status = 204;
+        return;
       },
       {
         params: t.Object({
@@ -129,7 +193,9 @@ export const app = new Elysia()
   })
 
   .get('/', async () => ({
+    author: 'Tegar Wijaya Kusuma',
     greet: INTRODUCTION,
+    // Convert floating-point uptime seconds into a whole-second string for cleaner output.
     uptime: `${Math.floor(process.uptime())}`,
   }))
 

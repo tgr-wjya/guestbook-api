@@ -17,7 +17,7 @@ jobs:
           command: |
             curl -Os https://uploader.codecov.io/latest/linux/codecov
             chmod +x codecov
-            ./codecov -f ./coverage/coverage.json -Z
+            ./codecov -f ./coverage/lcov.info -Z
 
 workflows:
   version: 2

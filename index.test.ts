@@ -7,9 +7,18 @@
  */
 
 import { it, describe, expect, beforeEach } from 'bun:test';
-import { app, messages, INTRODUCTION } from '.';
+import { app, messages, INTRODUCTION, lastRequestTime } from '.';
 
 const BASE_URL = 'http://localhost:3000';
+
+// TODO(test): Keep these as explicit follow-ups for behavior added/changed in index.ts.
+// TODO: Rate limit cleanup interval should remove stale identities from the request-time map
+// TODO: GET /swagger should be available after swagger plugin registration
+// TODO: POST /messages should apply independent rate limits across different client identities
+// TODO: POST /messages should fall back to 'unknown' identity when both x-forwarded-for and host are missing
+// TODO: POST /messages should fall back to host-derived identity when x-forwarded-for is missing
+// TODO: POST /messages should use x-forwarded-for as the primary client identity for rate limiting
+// TODO: POST /messages rate-limit errors should include both error and timestamp fields
 
 describe('Testing wildcards, headers and server uptime', () => {
   it('Should return 404 and object for wildcards', async () => {
@@ -45,6 +54,7 @@ describe('Testing wildcards, headers and server uptime', () => {
     expect(data).toHaveProperty('greet');
     expect(data).toHaveProperty('uptime');
     expect(data.greet).toBe(INTRODUCTION);
+    expect(data.author).toBe('Tegar Wijaya Kusuma');
     expect(typeof data.uptime).toBe('string');
     expect(response.headers.get('X-Powered-By')).toBe('Elysia + Bun + Fly.io');
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
@@ -158,34 +168,41 @@ describe('Testing /messages', () => {
       expect(data).toHaveProperty('error');
     });
 
-    it('Should enforce rate limiting', async () => {
-      const request1 = await app.handle(
-        new Request(`${BASE_URL}/messages`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: 'User1',
-            text: 'First message',
-          }),
-        })
-      );
+    describe('Should enforce rate limiting', () => {
+      beforeEach(() => {
+        messages.length = 0;
+        lastRequestTime.clear();
+      });
 
-      expect(request1.status).toBe(429);
+      it('Overlap request to test rate limiting', async () => {
+        const request1 = await app.handle(
+          new Request(`${BASE_URL}/messages`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: 'User1',
+              text: 'First message',
+            }),
+          })
+        );
 
-      const request2 = await app.handle(
-        new Request(`${BASE_URL}/messages`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: 'User1',
-            text: 'Second message too fast',
-          }),
-        })
-      );
+        expect(request1.status).toBe(201);
 
-      expect(request2.status).toBe(429);
-      const errorData = await request2.json();
-      expect(errorData).toHaveProperty('error');
+        const request2 = await app.handle(
+          new Request(`${BASE_URL}/messages`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: 'User1',
+              text: 'Second message too fast',
+            }),
+          })
+        );
+
+        expect(request2.status).toBe(429);
+        const errorData = await request2.json();
+        expect(errorData).toHaveProperty('error');
+      });
     });
 
     it('Should allow requests after rate limit window', async () => {
@@ -249,7 +266,7 @@ describe('Testing /messages', () => {
       expect(response.status).toBe(404);
       const data = await response.json();
       expect(data).toHaveProperty('error');
-      expect(data.error).toBe('Message Not Found');
+      expect(data.error).toBe('Message not found, unfortunately');
     });
 
     it('Should keep other messages when deleting one', async () => {
