@@ -26,8 +26,8 @@ i'll provide the documentation for the api below.
 ## endpoints
 
 | method | what it does |
-|--------|--------------|
-| `GET /` | server info, my introduction + uptime |
+| --------|------------|
+| `GET /` | server info, me, greetings + uptime |
 | `GET /messages` | **list all messages**, you can read all the message through here |
 | `POST /messages` | **leave a message**, here's how you can leave a message |
 | `DELETE /messages/:id` | **delete a message by id**, don't worry if you forgot the id. just list all the messages and find your previous message with its id |
