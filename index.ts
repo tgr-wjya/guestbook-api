@@ -23,6 +23,7 @@ const HOSTNAME = Bun.env.HOST || '0.0.0.0';
 const MIN_NAME_LENGTH = 2;
 const MIN_TEXT_LENGTH = 5;
 const RATE_LIMIT_MS = 2000;
+const CLEANUP_INTERVAL_MS = RATE_LIMIT_MS * 10;
 export const INTRODUCTION = 'made with ◉‿◉';
 
 //
@@ -38,11 +39,11 @@ export const INTRODUCTION = 'made with ◉‿◉';
  */
 export const lastRequestTime = new Map<string, number>();
 setInterval(() => {
-  const cutoff = Date.now() - RATE_LIMIT_MS * 10;
+  const cutoff = Date.now() - CLEANUP_INTERVAL_MS;
   for (const [ip, now] of lastRequestTime) {
     if (now < cutoff) lastRequestTime.delete(ip);
   }
-}, RATE_LIMIT_MS * 10);
+}, CLEANUP_INTERVAL_MS);
 
 /**
  * Custom Error Classes
