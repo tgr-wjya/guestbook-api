@@ -1,4 +1,4 @@
-FROM oven/bun:latest
+FROM oven/bun:1.3.10
 
 WORKDIR /app
 
@@ -10,6 +10,11 @@ RUN bun install --frozen-lockfile
 
 # Copy source code
 COPY . .
+
+# Create non-root user and switch to it
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup && \
+    chown -R appuser:appgroup /app
+USER appuser
 
 # Expose port
 EXPOSE 3000

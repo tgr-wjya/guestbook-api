@@ -16,9 +16,6 @@
 import { Elysia } from 'elysia';
 
 const PORT = Bun.env.PORT || 3000;
-const HOSTNAME = Bun.env.HOST || '0.0.0.0';
-const MIN_NAME_LENGTH = 2;
-const MIN_TEXT_LENGTH = 5;
 const RATE_LIMIT_MS = 2000;
 const CLEANUP_INTERVAL_MS = RATE_LIMIT_MS * 10;
 
@@ -72,21 +69,7 @@ class NotFoundException extends Error {
   }
 }
 
-// Rate Limiting logic.
-function rateLimit(set: { status: number }, request: Request) {
-  const ip =
-    request.headers.get('x-forwarded-for') ??
-    request.headers.get('host')?.split(':')[0] ??
-    'unknown';
-  const now = Date.now();
-  const last = lastRequestTime.get(ip);
-
-  if (last && now - last < RATE_LIMIT_MS) {
-    throw new RateLimitError();
-  }
-
-  lastRequestTime.set(ip, now);
-}
+// TODO: Add rate-limiter here.
 
 // Shipping-manifest, dude.
 export interface Message {
@@ -97,7 +80,8 @@ export interface Message {
 
 // MessageService.
 export class MessageService {
-  // Using `readonly` for fields only assigned in the constructor to make their intended immutability explicit and avoid confusion.
+  // Using `readonly` to make the intended immutability explicit and avoid confusion.
+  // this data is unreachable from outside after all, might as well make it readonly.
   private readonly messages: Message[] = [];
 
   add(name: string, text: string) {
