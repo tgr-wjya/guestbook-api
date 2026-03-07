@@ -1,5 +1,6 @@
 # guestbook-api
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/88392e6477d94754a0dd1588ff7bb386)](https://app.codacy.com/gh/tgr-wjya/guestbook-api?utm_source=github.com&utm_medium=referral&utm_content=tgr-wjya/guestbook-api&utm_campaign=Badge_Grade)
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/85F8zZ7ostSSLjq88Rwb8X/En4dD7SnUrHZBTKZYeSqfq/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/85F8zZ7ostSSLjq88Rwb8X/En4dD7SnUrHZBTKZYeSqfq/tree/main)
 [![codecov](https://codecov.io/gh/tgr-wjya/guestbook-api/graph/badge.svg?token=aSFZgD4ysP)](https://codecov.io/gh/tgr-wjya/guestbook-api)
 [![CodeTime Badge](https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36362%26project%3Dguestbook-api)](https://codetime.dev)
