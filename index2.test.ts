@@ -9,7 +9,7 @@
 /**
  * Import here
  */
-import { buildMessageApp, MessageGroupService, Message } from './index2';
+import { buildMessageApp, MessageService, Message } from './index2';
 import { it, describe, expect, beforeEach } from 'bun:test';
 
 /**
@@ -17,7 +17,7 @@ import { it, describe, expect, beforeEach } from 'bun:test';
  */
 const BASE_URL = Bun.env.BASE_URL || 'http://localhost:3000';
 let testApp: ReturnType<typeof buildMessageApp>;
-const group = new MessageGroupService();
+const group = new MessageService();
 const app = buildMessageApp(group);
 
 /**
@@ -44,7 +44,7 @@ describe('Testing wildcards and Error', () => {
 describe('Testing /messages', () => {
   describe('GET /messages', () => {
     beforeEach(() => {
-      testApp = buildMessageApp(new MessageGroupService());
+      testApp = buildMessageApp(new MessageService());
     });
 
     it('Should return all messages', async () => {

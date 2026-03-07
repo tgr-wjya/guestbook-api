@@ -13,7 +13,6 @@
  * @note clean slate is faster obviously.
  */
 
-import { sleep } from 'bun';
 import { Elysia } from 'elysia';
 
 const PORT = Bun.env.PORT || 3000;
@@ -96,9 +95,10 @@ export interface Message {
   text: string;
 }
 
-// MessageGroupService.
-export class MessageGroupService {
-  private messages: Message[] = [];
+// MessageService.
+export class MessageService {
+  // Using `readonly` for fields only assigned in the constructor to make their intended immutability explicit and avoid confusion.
+  private readonly messages: Message[] = [];
 
   add(name: string, text: string) {
     const message = { id: crypto.randomUUID(), name, text };
@@ -120,7 +120,7 @@ export class MessageGroupService {
   }
 }
 
-export function buildMessageApp(group = new MessageGroupService()) {
+export function buildMessageApp(group = new MessageService()) {
   const messageGroup = new Elysia().group('/messages', app =>
     app
 
