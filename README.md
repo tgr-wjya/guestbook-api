@@ -1,6 +1,5 @@
 # guestbook-api
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tgr-wjya/guestbook-api/test.yml)
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/85F8zZ7ostSSLjq88Rwb8X/En4dD7SnUrHZBTKZYeSqfq/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/85F8zZ7ostSSLjq88Rwb8X/En4dD7SnUrHZBTKZYeSqfq/tree/main)
 [![codecov](https://codecov.io/gh/tgr-wjya/guestbook-api/graph/badge.svg?token=aSFZgD4ysP)](https://codecov.io/gh/tgr-wjya/guestbook-api)
 [![CodeTime Badge](https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36362%26project%3Dguestbook-api)](https://codetime.dev)
@@ -58,6 +57,6 @@ Copyright (c) 2026 Tegar Wijaya Kusuma
 
 ---
 
-6 march 2026
+8 march 2026
 
 made with ◉‿◉
