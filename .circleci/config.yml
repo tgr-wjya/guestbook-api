@@ -50,7 +50,12 @@ jobs:
           name: Install SonarScanner CLI
           command: |
             apt-get update && apt-get install -y curl unzip
-            curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-6.2.1.4610-linux-x64.zip
+            rm -f sonar-scanner.zip
+            curl --fail --location --show-error --silent \
+              --retry 5 --retry-delay 2 --retry-all-errors \
+              --output sonar-scanner.zip \
+              https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-6.2.1.4610-linux-x64.zip
+            unzip -tq sonar-scanner.zip
             unzip -q sonar-scanner.zip
       - run:
           name: Run SonarCloud scan
