@@ -117,38 +117,22 @@
     EXPOSE 3000               # document the port
     CMD ["bun", "index.ts"]   # what runs when the container starts
     ```
-- you need to understand what the pipeline is actually doing. [config.yml](./.circleci/config.yml) pipeline explained:
+- you need to understand what the pipeline is actually doing. [ci.yml](./.github/workflows/ci.yml) pipeline explained:
   - ```yml
     jobs:
-    test:
-      docker:
-        - image: oven/bun:latest    # spin up a container with bun installed
-      steps:
-        - checkout                  # pull your code from GitHub
-        - restore_cache:            # grab cached node_modules if it exists
-            keys:
-              - bun-deps-{{ checksum "bun.lockb" }}
-        - run:
-            name: Install dependencies
-            command: bun install
-        - save_cache:               # cache node_modules for next run
-            key: bun-deps-{{ checksum "bun.lockb" }}
-            paths:
-              - ~/.bun/install/cache
-              - node_modules
-        - run:
-            name: Run tests with coverage
-            command: bun test --coverage
-        - run:
-            name: Upload coverage to Codecov
-            command: |
-              # downloads codecov uploader, runs it, sends lcov.info to codecov
+      test-and-sonar:
+        runs-on: ubuntu-latest         # GitHub-hosted Linux runner
+        steps:
+          - uses: actions/checkout@v4  # pull your code
+          - uses: oven-sh/setup-bun@v2 # install Bun
+          - run: bun install --frozen-lockfile
+          - run: bun test --coverage   # generates lcov.info
+          - uses: SonarSource/sonarqube-scan-action@v5
     ```
-  - the flow is: **push to main → circleci spins up a container → installs dependency → runs the tests → sends coverage report to codecov.**
-  - `{{ checksum "bun.lockb" }}` generates a unique key based on the lockfile content
-  - tf `bun.lock` hasn't changed since the last run, circleci reuses the cached `node_modules` instead of reinstalling everything. faster builds and cheaper.
-  - the `workflows` section at the bottom just says "only run this on the main branch". so pushing to a feature branch won't trigger it.
-  - pushing the `lcov.info` file that `bun test --coverage` generates which then codecov reads.
+  - the flow is: **push/pr → github actions runner starts → installs deps → runs tests with coverage → runs sonar scan in the same job.**
+  - `sonar-project.properties` stores your `sonar.projectKey` and `sonar.organization` so the workflow stays clean.
+  - sonar auth is from `SONAR_TOKEN` in GitHub repository secrets.
+  - this means CI and quality gate checks are now entirely handled by GitHub Actions.
   - seriously, i should hand over the explanation to [docker-mastery](https://github.com/tgr-wjya/docker-mastery) for details as its more appropriate there.
 
 ## find me
