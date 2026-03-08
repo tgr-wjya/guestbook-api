@@ -9,7 +9,7 @@
  * DELETE /messages/:id - Delete a message by ID
  *
  * @author Tegar Wijaya Kusuma
- * @date 7 March 2026
+ * @date 9 March 2026
  * @note clean slate is faster obviously.
  */
 
@@ -157,6 +157,7 @@ export function buildMessageApp(group = new MessageService()) {
           }
         )
 
+    // TODO: Continue the DELETE endpoint.
     /**
      * DELETE /messages
      * Delete a message here.

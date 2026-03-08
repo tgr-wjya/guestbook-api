@@ -2,8 +2,7 @@
  * Test runner for: index2.ts
  *
  * @author Tegar Wijaya Kusuma
- * @date 7 March 2026
- * @note Can't believe, I'm starting over. The goods news is that I could use code generation to fill it.
+ * @date 9 March 2026
  */
 
 /**
@@ -12,7 +11,7 @@
 import {
   buildMessageApp,
   MessageService,
-  Message,
+  type Message,
   lastRequestTime,
 } from './index2';
 import { it, describe, expect, beforeEach } from 'bun:test';

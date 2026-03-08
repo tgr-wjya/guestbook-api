@@ -10,7 +10,8 @@
     "lint:check": "biome lint .",
     "check": "biome check --write .",
     "dev": "bun --watch index.ts",
-    "start": "bun index.ts"
+    "start": "bun index.ts",
+    "dev2": "bun --watch index2.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.5",
