@@ -1,6 +1,6 @@
 # guestbook-api
 
-**8 march 2026**
+**9 march 2026**
 
 ## what i built
 
@@ -8,7 +8,7 @@
 
 ## time spent
 
-10 hrs 37 mins via [codetime](https://codetime.dev/en/)
+13 hrs 23 mins via [codetime](https://codetime.dev/en/)
 
 ## what i learned
 
@@ -76,7 +76,7 @@
   
   - with `private messages`, nothing outside the class can touch that array directly.
   - the only way in is through `add()`, `getAll()`, `remove()`. the class owns the data and controls what you can do with it.
-  - that is the best practice!
+  - with the `add()` constructor, you can actually just use `return group.add(params1, params2)` in your POST endpoint if your `add()` constructor support returning message already.
   - the payoff shows up in the tests. because the data is encapsulated in an instance, you can just do this:
   - ```typescript
     beforeEach(() => {
