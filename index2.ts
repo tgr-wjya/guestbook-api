@@ -13,10 +13,12 @@
  * @note clean slate is faster obviously.
  */
 
-import { Elysia } from 'elysia';
+import { Elysia, t } from 'elysia';
 
 const PORT = Bun.env.PORT || 3000;
 const RATE_LIMIT_MS = 2000;
+const MIN_NAME_LENGTH = 2;
+const MIN_TEXT_LENGTH = 5;
 const CLEANUP_INTERVAL_MS = RATE_LIMIT_MS * 10;
 
 /**
@@ -69,7 +71,21 @@ class NotFoundException extends Error {
   }
 }
 
-// TODO: Add rate-limiter here.
+// Rate-limiting logic.
+function rateLimit(set: { status: number }, request: Request) {
+  const ip =
+    request.headers.get('x-forwarded-for') ??
+    request.headers.get('host')?.split(':')[0] ??
+    'unknown';
+  const now = Date.now();
+  const last = lastRequestTime.get(ip);
+
+  if (last && now - last < RATE_LIMIT_MS) {
+    throw new RateLimitError();
+  }
+
+  lastRequestTime.set(ip, now);
+}
 
 // Shipping-manifest, dude.
 export interface Message {
@@ -105,16 +121,46 @@ export class MessageService {
 }
 
 export function buildMessageApp(group = new MessageService()) {
-  const messageGroup = new Elysia().group('/messages', app =>
-    app
+  const messageGroup = new Elysia().group(
+    '/messages',
+    app =>
+      app
 
-      /**
-       * onError with custom class
-       */
-      .get('/', async ({ set }) => {
-        set.status = 200;
-        return group.getAll();
-      })
+        /**
+         * GET /messages
+         * list all messages
+         */
+        .get('/', async ({ set }) => {
+          // TODO: Consider implementing an if check if no message exist empty and said something about an empty message list.
+          set.status = 200;
+          return group.getAll();
+        })
+
+        /**
+         * POST /messages
+         * Leave a messages here.
+         */
+        .post(
+          '/',
+          async ({ set, body }) => {
+            set.status = 201;
+            return group.add(body.name, body.text);
+          },
+          {
+            body: t.Object({
+              name: t.String({ minLength: MIN_NAME_LENGTH }),
+              text: t.String({ minLength: MIN_TEXT_LENGTH }),
+            }),
+            beforeHandle: ({ set, request }) => {
+              rateLimit(set, request);
+            },
+          }
+        )
+
+    /**
+     * DELETE /messages
+     * Delete a message here.
+     */
   );
 
   const rootApp = new Elysia()

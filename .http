@@ -11,8 +11,8 @@ POST {{baseURL}}/messages
 Content-Type: application/json
 
 {
-  "name": "Tegar Wijaya Kusuma",
-  "text": "made with ◉‿◉" 
+  "name": "Valid",
+  "text": "Not" 
 }
 
 ### DELETE /messages
