@@ -11,7 +11,8 @@
     "check": "biome check --write .",
     "dev": "bun --watch index.ts",
     "start": "bun index.ts",
-    "dev2": "bun --watch index2.ts"
+    "dev2": "bun --watch index2.ts",
+    "test2": "bun test index2.test.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.5",
