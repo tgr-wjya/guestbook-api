@@ -2,7 +2,8 @@
   "soft_wrap": "editor_width",
   "indent_guides": {
     "enabled": true,
-    "coloring": "indent_aware"
+    "coloring": "indent_aware",
+    "background_coloring": "indent_aware"
   },
   "lsp": {
     "eslint": {
@@ -17,6 +18,12 @@
     }
   },
   "format_on_save": "on",
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": false
+  },
   "languages": {
     "TypeScript": {
       "formatter": {

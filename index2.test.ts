@@ -125,6 +125,11 @@ describe('Tesing /messages endpoints', () => {
       expect(mockData[0]?.text).toBe('Hello!');
       expect(mockData[1]?.text).toBe('World!');
     });
+
+    // TODO: Test that each message in the array has the correct shape (id, name, text)
+    // TODO: Test that the array preserves insertion order
+    // TODO: Test that messages from different POST requests all appear in the list
+    // TODO: Test that GET /messages is not affected by rate limiting
   });
 
   describe('POST /messages', () => {
@@ -223,5 +228,11 @@ describe('Tesing /messages endpoints', () => {
         expect(overlap).toBe('Too many request at once, please slow down!');
       });
     });
+
+    // TODO: Test that the created message is actually persisted and retrievable via GET /messages
+    // TODO: Test that missing required fields (no name, no text) returns 422
+    // TODO: Test that extra/unknown fields in the body are ignored and don't cause errors
+    // TODO: Test that the returned `id` is a valid UUID
+    // TODO: Test that multiple unique messages can be created without conflict
   });
 });
