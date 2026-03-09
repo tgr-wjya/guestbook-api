@@ -121,51 +121,55 @@ export class MessageService {
 }
 
 export function buildMessageApp(group = new MessageService()) {
-  const messageGroup = new Elysia().group(
-    '/messages',
-    app =>
-      app
-
-        /**
-         * GET /messages
-         * list all messages
-         */
-        .get('/', async ({ set }) => {
-          // TODO: Consider implementing an if check if no message exist empty and said something about an empty message list.
-          set.status = 200;
-          return group.getAll();
-        })
-
-        /**
-         * POST /messages
-         * Leave a messages here.
-         */
-        .post(
-          '/',
-          async ({ set, body }) => {
-            set.status = 201;
-            return group.add(body.name, body.text);
-          },
-          {
-            body: t.Object({
-              name: t.String({ minLength: MIN_NAME_LENGTH }),
-              text: t.String({ minLength: MIN_TEXT_LENGTH }),
-            }),
-            beforeHandle: ({ set, request }) => {
-              rateLimit(set, request);
-            },
-          }
-        )
-
-    // TODO: Continue the DELETE endpoint.
-    /**
-     * DELETE /messages
-     * Delete a message here.
-     */
-  );
-
   const rootApp = new Elysia()
-    .use(messageGroup)
+    .onAfterHandle(({ set }) => {
+      set.headers['X-Powered-By'] = 'Elysia + Bun + Railway';
+      set.headers['Access-Control-Allow-Origin'] = '*';
+    })
+
+    .all('/', async () => 'made with ◉‿◉')
+
+    .group(
+      '/messages',
+      app =>
+        app
+
+          /**
+           * GET /messages
+           * list all messages
+           */
+          .get('/', async ({ set }) => {
+            set.status = 200;
+            return group.getAll();
+          })
+
+          /**
+           * POST /messages
+           * Leave a messages here.
+           */
+          .post(
+            '/',
+            async ({ set, body }) => {
+              set.status = 201;
+              return group.add(body.name, body.text);
+            },
+            {
+              body: t.Object({
+                name: t.String({ minLength: MIN_NAME_LENGTH }),
+                text: t.String({ minLength: MIN_TEXT_LENGTH }),
+              }),
+              beforeHandle: ({ set, request }) => {
+                rateLimit(set, request);
+              },
+            }
+          )
+
+      // TODO: Continue the DELETE endpoint.
+      /**
+       * DELETE /messages
+       * Delete a message here.
+       */
+    )
 
     .onError(({ error, set }) => {
       if (error instanceof MessageNotFoundError) {
@@ -202,5 +206,5 @@ export function buildMessageApp(group = new MessageService()) {
   return rootApp;
 }
 
-const app2 = buildMessageApp().listen(PORT);
-console.log(`Listening on port ${app2.server?.port}`);
+const app = buildMessageApp().listen(PORT);
+console.log(`Listening on port ${app.server?.port}`);
