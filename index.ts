@@ -12,8 +12,8 @@
  * @note A bored project in the middle of the night and also to learn how Railway works since I heard the deployment process is quite easy.
  */
 
-import { Elysia, t } from 'elysia';
 import { swagger } from '@elysiajs/swagger';
+import { Elysia, t } from 'elysia';
 
 /**
  * CONST definition goes here.

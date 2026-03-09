@@ -6,8 +6,8 @@
  * @note A bored project, let's see how fast I can make it 100% coverage.
  */
 
-import { it, describe, expect, beforeEach } from 'bun:test';
-import { app, messages, INTRODUCTION, lastRequestTime } from '.';
+import { beforeEach, describe, expect, it } from 'bun:test';
+import { app, INTRODUCTION, lastRequestTime, messages } from '.';
 
 const BASE_URL = 'http://localhost:3000';
 
