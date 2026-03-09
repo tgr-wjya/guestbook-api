@@ -13,6 +13,7 @@
  * @note clean slate is faster obviously.
  */
 
+import swagger from '@elysiajs/swagger';
 import { Elysia, t } from 'elysia';
 
 const PORT = Bun.env.PORT || 3000;
@@ -126,6 +127,8 @@ export function buildMessageApp(group = new MessageService()) {
       set.headers['X-Powered-By'] = 'Elysia + Bun + Railway';
       set.headers['Access-Control-Allow-Origin'] = '*';
     })
+
+    .use(swagger())
 
     .all('/', async () => 'made with ◉‿◉')
 
