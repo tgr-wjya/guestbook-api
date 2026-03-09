@@ -1,0 +1,65 @@
+[
+  {
+    "label": "bun: test all",
+    "command": "bun test",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "bun: test index",
+    "command": "bun test index.test.ts",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "bun: test index2",
+    "command": "bun test index2.test.ts",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "biome: format all",
+    "command": "bunx --bun @biomejs/biome format --write .",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "biome: format file",
+    "command": "bunx --bun @biomejs/biome format --write $ZED_FILE",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "biome: lint all",
+    "command": "bunx --bun @biomejs/biome lint --write .",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "biome: lint file",
+    "command": "bunx --bun @biomejs/biome lint --write $ZED_FILE",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "biome: check all",
+    "command": "bunx --bun @biomejs/biome check --write .",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "biome: check file",
+    "command": "bunx --bun @biomejs/biome check --write $ZED_FILE",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  }
+]
