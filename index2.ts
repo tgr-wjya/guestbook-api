@@ -167,6 +167,19 @@ export function buildMessageApp(group = new MessageService()) {
             }
           )
 
+          .delete(
+            '/:id',
+            async ({ set, params }) => {
+              set.status = 204;
+              return group.remove(params.id);
+            },
+            {
+              params: t.Object({
+                id: t.String(),
+              }),
+            }
+          )
+
       // TODO: Continue the DELETE endpoint.
       /**
        * DELETE /messages

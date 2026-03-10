@@ -235,4 +235,19 @@ describe('Tesing /messages endpoints', () => {
     // TODO: Test that the returned `id` is a valid UUID
     // TODO: Test that multiple unique messages can be created without conflict
   });
+
+  describe('DELETE /messages', () => {
+    beforeEach(() => {
+      service = new MessageService();
+      testApp = buildMessageApp(service);
+    });
+
+    // TODO: Test that deleting an existing message returns 200 (or 204)
+    // TODO: Test that the deleted message no longer appears in GET /messages
+    // TODO: Test that deleting a non-existent ID returns 404
+    // TODO: Test that deleting with a malformed/invalid UUID returns the appropriate error
+    // TODO: Test that deleting the same message twice returns 404 on the second attempt
+    // TODO: Test that rate limiting applies to DELETE requests
+    // TODO: Test that deleting one message does not affect other existing messages
+  });
 });
