@@ -3,13 +3,13 @@
  * In-memory Guestbook API
  *
  * Endpoints:
- * GET / - Server info + uptime
+ * GET / - Kaomoji
  * GET /messages - List all messages
  * POST /messages - Leave a message (name + text, validated)
  * DELETE /messages/:id - Delete a message by ID
  *
  * @author Tegar Wijaya Kusuma
- * @date 9 March 2026
+ * @date 12 March 2026
  * @note clean slate is faster obviously.
  */
 
@@ -139,8 +139,10 @@ export function buildMessageApp(group = new MessageService()) {
          * list all messages
          */
         .get('/', async ({ set }) => {
+          const getMessages = group.getAll();
+
           set.status = 200;
-          return group.getAll();
+          return getMessages;
         })
 
         /**
@@ -150,8 +152,10 @@ export function buildMessageApp(group = new MessageService()) {
         .post(
           '/',
           async ({ set, body }) => {
+            const created = group.add(body.name, body.text);
+
             set.status = 201;
-            return group.add(body.name, body.text);
+            return created;
           },
           {
             body: t.Object({
