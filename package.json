@@ -12,10 +12,10 @@
     "dev": "bun --watch index.ts",
     "start": "bun index.ts",
     "test": "bun test",
-    "test delete": "bun test src/tests/messages.delete.test.ts",
-    "test get": "bun test src/tests/messages.get.test.ts",
-    "test post": "bun test src/tests/messages.post.test.ts",
-    "test server": "bun test src/tests/server.test.ts"
+    "test:delete": "bun test src/tests/messages.delete.test.ts",
+    "test:get": "bun test src/tests/messages.get.test.ts",
+    "test:post": "bun test src/tests/messages.post.test.ts",
+    "test:server": "bun test src/tests/server.test.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.5",

@@ -13,9 +13,15 @@ and since its my actual project, it'd be happy if people use it!
 
 i know that i said that the only one reading is me but technically you could, i just thought that no one'd be bothered enough to check it out.
 
-the downside of this project is that since the `messages` lives in the memory, it'll get wipeout every deployment, which is like every `push`.
+the downside of this project is that since the `messages` lives in the memory, it'll get wipeout every deployment, which is like every push.
 
 but this is a temporary setback as i'll likely improve this project later for more persistent storage. this is a bored project after all.
+
+## changelog
+
+- **refactored project structure:** split into `src/` for separation of concerns `(errors/, service/, routes/, config.ts)`.
+- tests split by http method on `/tests`, see [package.json](./package.json) and [/tests](./tests)
+- `index.ts` as the entry point.
 
 ## live url
 
@@ -27,7 +33,7 @@ i'll provide the documentation for the api below.
 
 | method | what it does |
 | --------|------------|
-| `GET /` | server info, me, greetings + uptime |
+| `GET /` | kaomoji |
 | `GET /messages` | **list all messages**, you can read all the message through here |
 | `POST /messages` | **leave a message**, here's how you can leave a message |
 | `DELETE /messages/:id` | **delete a message by id**, don't worry if you forgot the id. just list all the messages and find your previous message with its id |
@@ -55,7 +61,7 @@ just **elysia** and **bun** my favorite dx tools and **biome** my GOATED formatt
 
 ### unrelated note
 
->  [zed](https://zed.dev/) is awesome! that's it.
+>  [zed](https://zed.dev/) is awesome! that's all.
 
 i think more people should use it. you'll be surprised at how accommodating zed actually are. i thought that i'll be compromising my extension, tools when i tried zed but overall its been a great experience. 
 
