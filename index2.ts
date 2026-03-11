@@ -114,10 +114,9 @@ export class MessageService {
   remove(id: string) {
     const index = this.messages.findIndex(msg => msg.id === id);
     if (index === -1) {
-      return false;
+      throw new MessageNotFoundError();
     }
     this.messages.splice(index, 1);
-    return true;
   }
 }
 
@@ -132,59 +131,55 @@ export function buildMessageApp(group = new MessageService()) {
 
     .all('/', async () => 'made with ◉‿◉')
 
-    .group(
-      '/messages',
-      app =>
-        app
+    .group('/messages', app =>
+      app
 
-          /**
-           * GET /messages
-           * list all messages
-           */
-          .get('/', async ({ set }) => {
-            set.status = 200;
-            return group.getAll();
-          })
+        /**
+         * GET /messages
+         * list all messages
+         */
+        .get('/', async ({ set }) => {
+          set.status = 200;
+          return group.getAll();
+        })
 
-          /**
-           * POST /messages
-           * Leave a messages here.
-           */
-          .post(
-            '/',
-            async ({ set, body }) => {
-              set.status = 201;
-              return group.add(body.name, body.text);
+        /**
+         * POST /messages
+         * Leave a messages here.
+         */
+        .post(
+          '/',
+          async ({ set, body }) => {
+            set.status = 201;
+            return group.add(body.name, body.text);
+          },
+          {
+            body: t.Object({
+              name: t.String({ minLength: MIN_NAME_LENGTH }),
+              text: t.String({ minLength: MIN_TEXT_LENGTH }),
+            }),
+            beforeHandle: ({ set, request }) => {
+              rateLimit(set, request);
             },
-            {
-              body: t.Object({
-                name: t.String({ minLength: MIN_NAME_LENGTH }),
-                text: t.String({ minLength: MIN_TEXT_LENGTH }),
-              }),
-              beforeHandle: ({ set, request }) => {
-                rateLimit(set, request);
-              },
-            }
-          )
+          }
+        )
 
-          .delete(
-            '/:id',
-            async ({ set, params }) => {
-              set.status = 204;
-              return group.remove(params.id);
-            },
-            {
-              params: t.Object({
-                id: t.String(),
-              }),
-            }
-          )
-
-      // TODO: Continue the DELETE endpoint.
-      /**
-       * DELETE /messages
-       * Delete a message here.
-       */
+        /**
+         * DELETE /messages
+         * Delete a message here.
+         */
+        .delete(
+          '/:id',
+          async ({ set, params }) => {
+            group.remove(params.id);
+            set.status = 204;
+          },
+          {
+            params: t.Object({
+              id: t.String(),
+            }),
+          }
+        )
     )
 
     .onError(({ error, set }) => {
