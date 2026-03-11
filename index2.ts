@@ -178,6 +178,9 @@ export function buildMessageApp(group = new MessageService()) {
             params: t.Object({
               id: t.String(),
             }),
+            beforeHandle: ({ set, request }) => {
+              rateLimit(set, request);
+            },
           }
         )
     )
