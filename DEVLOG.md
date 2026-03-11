@@ -1,6 +1,6 @@
 # guestbook-api
 
-**9 march 2026**
+**12 march 2026**
 
 ## what i built
 
@@ -9,6 +9,8 @@
 ## time spent
 
 13 hrs 23 mins via [codetime](https://codetime.dev/en/)
+
+> note, i've been using zed ide so there's really no extension tracking my time spent in zed. i don't mind this, actually.
 
 ## what i learned
 
