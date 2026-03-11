@@ -9,7 +9,7 @@
 > its an in-memory guestbook api that i've built with elysia + bun, deployed on [railway](https://railway.com)
 
 basically, you can leave a message for me here because there's really no one reading it besides me.
-and since its my actual project, it'd be happy if people use it ᵔᴥᵔ
+and since its my actual project, it'd be happy if people use it!
 
 i know that i said that the only one reading is me but technically you could, i just thought that no one'd be bothered enough to check it out.
 
@@ -36,9 +36,11 @@ i'll provide the documentation for the api below.
 
 you won't be able to use it if you don't have [rest client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) on your ide. it is just to show you what the raw request looks like.
 
+or better yet, use swagger. you just need to add `/swagger` at the end of the prod url. check this out: [swagger](https://guestbook-api-production.up.railway.app/swagger)
+
 ## stack
 
-just **elysia** and **bun** my favorite dx tools.
+just **elysia** and **bun** my favorite dx tools and **biome** my GOATED formatter and linter.
 
 ## how to run it locally if you're really curious
 
@@ -49,7 +51,11 @@ just **elysia** and **bun** my favorite dx tools.
 
 ### copyright
 
-Copyright (c) 2026 Tegar Wijaya Kusuma
+[Copyright](./LICENSE) (c) 2026 Tegar Wijaya Kusuma
+
+### unrelated note
+
+>  [zed](https://zed.dev/) is awesome! i think more people should use it. you'll be surprised at how accommodating zed actually are. i thought that i'll be compromising my extension, tools when i tried zed but overall its been a great experience. all the tools that i've used are available just like in vs code, well not all but it'll definitely cover your needs.
 
 ## find me here
 
@@ -57,6 +63,6 @@ Copyright (c) 2026 Tegar Wijaya Kusuma
 
 ---
 
-9 march 2026
+12 march 2026
 
 made with ◉‿◉
