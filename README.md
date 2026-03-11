@@ -55,7 +55,11 @@ just **elysia** and **bun** my favorite dx tools and **biome** my GOATED formatt
 
 ### unrelated note
 
->  [zed](https://zed.dev/) is awesome! i think more people should use it. you'll be surprised at how accommodating zed actually are. i thought that i'll be compromising my extension, tools when i tried zed but overall its been a great experience. all the tools that i've used are available just like in vs code, well not all but it'll definitely cover your needs.
+>  [zed](https://zed.dev/) is awesome! that's it.
+
+i think more people should use it. you'll be surprised at how accommodating zed actually are. i thought that i'll be compromising my extension, tools when i tried zed but overall its been a great experience. 
+
+all the tools that i've used are available just like in vs code, well not all but it'll definitely cover your needs. and its responsive as hell too, 10/10.
 
 ## find me here
 
