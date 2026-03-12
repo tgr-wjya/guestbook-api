@@ -28,7 +28,7 @@ jobs:
           command: bun test --coverage
 
       - codecov/upload:
-          file: ./coverage/lcov.info
+          files: ./coverage/lcov.info
 
       - restore_cache:
           keys:
