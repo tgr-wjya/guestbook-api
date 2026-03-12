@@ -5,6 +5,8 @@
  * @date 13 March 2026
  */
 
+const notFoundKaomoji = String.raw`Not found ¯\\_(ツ)_/¯`;
+
 // Error thrown when a requested message cannot be found.
 export class MessageNotFoundError extends Error {
   status = 404;
@@ -27,7 +29,7 @@ export class NotFoundException extends Error {
   availableEndpoints: string[];
 
   constructor(availableEndpoints: string[]) {
-    super('Not found ¯\\_(ツ)_/¯');
+    super(notFoundKaomoji);
     this.availableEndpoints = availableEndpoints;
   }
 }
