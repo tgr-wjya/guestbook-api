@@ -19,13 +19,6 @@ import {
 import { MessageService } from './service/message.service';
 import { buildMessageRoutes } from './routes/messages';
 
-// Type-safety for Message guestbook.
-export interface Message {
-  id: string;
-  name: string;
-  text: string;
-}
-
 /**
  * buildMessageApp() function
  *

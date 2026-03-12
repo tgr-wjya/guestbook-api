@@ -18,7 +18,8 @@
  */
 
 import { beforeEach, describe, expect, it } from 'bun:test';
-import { buildMessageApp, type Message } from '../src/app';
+import type { Message } from '../src/types';
+import { buildMessageApp } from '../src/app';
 import { MessageService } from '../src/service/message.service';
 import { lastRequestTime } from '../src/config';
 

@@ -5,8 +5,8 @@
  * @date 12 March 2026
  */
 
-import { type Message } from '../app';
 import { MessageNotFoundError } from '../errors/errors';
+import type { Message } from '../types';
 
 /**
  * MessageService() class.
