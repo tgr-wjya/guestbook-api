@@ -24,6 +24,10 @@ jobs:
             - node_modules
 
       - run:
+          name: Install system dependencies
+          command: apt-get update && apt-get install -y curl unzip
+
+      - run:
           name: Run tests with coverage
           command: bun test --coverage
 
@@ -38,7 +42,6 @@ jobs:
           name: Install Sonar Scanner
           command: |
             if [ ! -f /opt/sonar-scanner-6.2.1.4610-linux-x64/bin/sonar-scanner ]; then
-              apt-get update && apt-get install -y curl unzip
               curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.2.1.4610-linux-x64.zip
               unzip sonar-scanner.zip -d /opt
             fi
