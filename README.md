@@ -1,7 +1,7 @@
 # guestbook-api
 
-
-[![CodeTime Badge](https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36362%26project%3Dguestbook-api)](https://codetime.dev)
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/85F8zZ7ostSSLjq88Rwb8X/UUFB4usH7iWsbLrGuJdYpV/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/85F8zZ7ostSSLjq88Rwb8X/UUFB4usH7iWsbLrGuJdYpV/tree/main)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=tgr-wjya_guestbook-api&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=tgr-wjya_guestbook-api)
 
 ## what is it?
 
