@@ -63,7 +63,7 @@ describe('Testing server wildcards, headers, root', () => {
       expect(response.status).toBe(404);
       const wildcards = (await response.json()) as Wildcards;
       expect(wildcards).toBeObject();
-      expect(wildcards).toHaveProperty('error', 'Not found ¯\\_(ツ)_/¯');
+      expect(wildcards).toHaveProperty('error', 'Not Found');
       expect(wildcards).toHaveProperty(
         'message',
         "This endpoint doesn't exist"
