@@ -2,7 +2,7 @@
  * Entry point for /app.ts
  *
  * @author Tegar Wijaya Kusuma
- * @date 12 March 2026
+ * @date 13 March 2026
  */
 
 import { buildMessageApp } from './src/app';

@@ -2,7 +2,7 @@
  * MessageService() class
  *
  * @author Tegar Wijaya Kusuma
- * @date 12 March 2026
+ * @date 13 March 2026
  */
 
 import { MessageNotFoundError } from '../errors/errors';

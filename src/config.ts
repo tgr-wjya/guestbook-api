@@ -7,7 +7,7 @@
  * @lastRequestTime
  *
  * @author Tegar Wijaya Kusuma
- * @date 12 March 2026
+ * @date 13 March 2026
  */
 
 import { RateLimitError } from './errors/errors';

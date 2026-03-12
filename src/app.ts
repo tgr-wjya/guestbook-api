@@ -5,7 +5,7 @@
  * ALL /root
  *
  * @author Tegar Wijaya Kusuma
- * @date 12 March 2026
+ * @date 13 March 2026
  * @note: Improving the overall structure of the code, moving buildMessageApp() from /index.ts to here for separation of concern.
  */
 

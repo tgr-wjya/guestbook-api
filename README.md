@@ -1,7 +1,6 @@
 # guestbook-api
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/tgr-wjya/guestbook-api/ci.yml?style=flat)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=tgr-wjya_guestbook-api&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=tgr-wjya_guestbook-api)
+
 [![CodeTime Badge](https://shields.jannchie.com/endpoint?style=social&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D36362%26project%3Dguestbook-api)](https://codetime.dev)
 
 ## what is it?
@@ -73,6 +72,6 @@ all the tools that i've used are available just like in vs code, well not all bu
 
 ---
 
-12 march 2026
+13 March 2026
 
 made with ◉‿◉

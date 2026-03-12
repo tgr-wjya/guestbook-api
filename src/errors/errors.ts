@@ -2,7 +2,7 @@
  * All custom error classes
  *
  * @author Tegar Wijaya Kusuma
- * @date 12 March 2026
+ * @date 13 March 2026
  */
 
 // Error thrown when a requested message cannot be found.
