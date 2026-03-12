@@ -17,7 +17,7 @@ export const MIN_NAME_LENGTH = 2;
 export const MIN_TEXT_LENGTH = 5;
 const RATE_LIMIT_MS = 2000;
 const CLEANUP_INTERVAL_MS = RATE_LIMIT_MS * 10;
-export const PORT = Bun.env.PORT ?? 3000;
+export const PORT = Number(Bun.env.PORT ?? 3000);
 export const HOSTNAME = Bun.env.HOST || '0.0.0.0';
 
 if (!Number.isFinite(PORT)) throw new Error(`Invalid PORT: ${Bun.env.PORT}`);
